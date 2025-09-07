@@ -21,7 +21,7 @@ jobs:
 
       - name: Download Gradle 8.2
         run: |
-          curl -SL https://services.gradle.org/distributions/gradle-8.2-bin.zip -o gradle.zip
+          curl -sL https://services.gradle.org/distributions/gradle-8.2-bin.zip -o gradle.zip
           unzip -q gradle.zip
           echo "$PWD/gradle-8.2/bin" >> $GITHUB_PATH
 
@@ -37,13 +37,7 @@ jobs:
       - name: Create theme and icons
         run: |
           mkdir -p ehealth_app/app/src/main/res/values
-          cat <<'THEME' > ehealth_app/app/src/main/res/values/themes.xml
-          <resources xmlns:tools="http://schemas.android.com/tools">
-              <style name="Theme.EHealthApp" parent="Theme.Material3.DayNight.NoActionBar">
-                  <item name="android:windowSplashScreenBackground">@android:color/transparent</item>
-              </style>
-          </resources>
-THEME
+          printf '<resources xmlns:tools="http://schemas.android.com/tools">\n<style name="Theme.EHealthApp" parent="Theme.Material3.DayNight.NoActionBar">\n<item name="android:windowSplashScreenBackground">@android:color/transparent</item>\n</style>\n</resources>\n' > ehealth_app/app/src/main/res/values/themes.xml
           for density in mdpi hdpi xhdpi xxhdpi xxxhdpi; do
             mkdir -p "ehealth_app/app/src/main/res/mipmap-$density"
             cp ehealth_app/app/src/main/res/drawable/splash_mascot.png "ehealth_app/app/src/main/res/mipmap-$density/ic_launcher.png"

@@ -28,6 +28,11 @@ jobs:
       - name: Unzip project
         run: |
           unzip -q ehealth_app_offline_fixed.zip -d .
+                  - name: Configure gradle properties
+    run: |
+      echo "android.useAndroidX=true" >> ehealth_app/gradle.properties
+      echo "android.enableJetifier=true" >> ehealth_app/gradle.properties
+
 
       - name: Generate Gradle wrapper in project
         working-directory: ehealth_app
